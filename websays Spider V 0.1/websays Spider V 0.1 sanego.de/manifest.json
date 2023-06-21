@@ -1,0 +1,25 @@
+{
+   "content_scripts": [{
+      "css": [ "style.css"],
+      "default_icon": "favicon.ico",
+      "js": [ 
+         "jquery.js","script.js","google.js"
+      ],
+      "matches": [ "https://www.sanego.de/*"],
+      "run_at": "document_idle"
+   }],
+   
+	"icons": { 
+		"16": "16x16.jpg",
+		"48": "48x48.jpg",
+		"128": "128x128.jpg"
+	},
+   "manifest_version": 2,
+   "name": "Wabsays Spider",
+   "author": "Umair Raza",
+   "permissions": ["https://www.sanego.de/*","http://*/*", "https://*/*"  ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "description":"This extension is exclusively for our company work.",
+   "version": "0.1",
+   "web_accessible_resources": [ "script.js" ]
+}

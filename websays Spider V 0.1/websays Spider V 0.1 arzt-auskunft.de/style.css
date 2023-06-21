@@ -1,0 +1,88 @@
+@charset "utf-8";
+/* CSS Document */
+
+.ext-left-menu{
+	width: 11% !important;
+	height: 130px;
+	min-height: 98px;
+	max-height: 110px;
+	border: 2px solid #837A7B;
+	border-radius: 5px;
+	top: 85px;
+	bottom: 85px;
+	left: 1px;
+	right: 5px;
+	background-color: #FFF;
+	position: fixed;
+	padding: 5px;
+	font-family: "sans-serif" !important;
+	z-index: 99999;
+}
+.mrgn15 {
+	
+	margin-top: 15px;
+}
+h3 {
+	
+	font-size: 16px !important;
+	font-weight: bolder !important;
+	font-family: "sans-serif" !important;
+}
+
+.ext-row {
+	margin: 15px 5px 0px 5px !important;
+	text-align: left !important;
+}
+
+.ext-label{
+	
+	font-size: 12px !important;
+	font-weight: bold !important;
+	float: left !important;
+}
+
+
+.ext-input{
+    /*margin-top: 5px !important;
+    display: inline-block !important;
+    border: 1px solid #ccc;
+    border-radius: 4px !important;
+    box-sizing: border-box !important;
+	padding: 5px 0px !important;
+	height: 30px !important;*/
+}
+
+.ext-btn {
+    width: 100% !important;
+    background-color: #4CAF50 !important;
+    color: white !important;
+    /*padding: 14px 20px !important;
+    margin: 8px 0 !important;*/
+    padding: 7px 8px !important;
+    margin: 5px 0px !important;
+    border: none !important;
+    border-radius: 4px !important;
+    cursor: pointer !important;
+}
+
+.ext-btn:hover {
+    background-color: #45a049 !important;
+}
+
+.div-ext {
+    border-radius: 5px !important;
+    background-color: #f2f2f2 !important;
+    /*padding: 10px 3px !important;*/
+}
+.ext-error{
+	
+	margin-top: 5px !important;
+	color: red !important;
+	text-align: left !important;
+}
+
+.ext-title{
+	text-align: center;
+    font-weight: bold !important;
+    padding-top: 10px;
+}
