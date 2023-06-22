@@ -10,9 +10,9 @@ import (
 
 const (
 	DB_USERNAME = "tabeed"
-	DB_PASSWORD = "MH={m1@rp-'x\OMU"
-	DB_NAME     = "sql8627546"
-	DB_HOST     = "35.205.245.223"
+	DB_PASSWORD = "websays1234"
+	DB_NAME     = "sermo"
+	DB_HOST     = "localhost"
 	DB_PORT     = "3306"
 )
 
