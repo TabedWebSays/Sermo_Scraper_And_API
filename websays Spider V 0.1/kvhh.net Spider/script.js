@@ -169,26 +169,36 @@ function scrapeWebsite() {
     // Extract the title element within the item
     const titleElement = item.querySelector('h2.headline___34TvG');
 
-    // Extract the specialization element within the item
-    const specializationElement = item.querySelector('.content1___3ePx6');
+    // Extract the content1 element within the item
+    const content1Element = item.querySelector('.content1___3ePx6');
 
     // Extract the content2 element within the item
     const content2Element = item.querySelector('.content2___1J4BV');
 
     // Initialize variables to store the extracted values
-    let title = '';
+    let name = '';
     let specialization = '';
+    let address = '';
     let telephone = '';
     let website = '';
 
     // Check if the title element exists and extract its text content
     if (titleElement) {
-      title = titleElement.textContent.trim();
+      name = titleElement.textContent.trim();
     }
 
-    // Check if the specialization element exists and extract its text content
-    if (specializationElement) {
-      specialization = specializationElement.textContent.trim();
+    // Check if the content1 element exists
+    if (content1Element) {
+      const content1Nodes = content1Element.childNodes;
+      if (content1Nodes.length > 0) {
+        specialization = content1Nodes[0].textContent.trim();
+      }
+
+      // Extract the address
+      const addressMatch = content1Element.innerHTML.match(/<br>(.*?)<br>(.*?)<br>/);
+      if (addressMatch) {
+        address = addressMatch[2].trim();
+      }
     }
 
     // Check if the content2 element exists
@@ -211,8 +221,9 @@ function scrapeWebsite() {
 
     // Create an object with the extracted data and add it to the results array
     results.push({
-      title,
+      name,
       specialization,
+      address,
       telephone,
       website,
     });
@@ -221,6 +232,7 @@ function scrapeWebsite() {
   // Output the results to the console
   console.log(results);
 }
+
 
 function connectpubSub(){
 

@@ -158,56 +158,67 @@ $(function(){
 });
 
 function scrapeWebsite() {
- // Select the parent element that contains the result list
- const resultList = document.querySelector('.content #doctorList .doctorSearchResult ul.resultList');
- const items = resultList.querySelectorAll('li.row.showRestCont');
-
- const results = [];
-
- // Iterate over each item in the result list
- items.forEach((item) => {
-   // Extract the title element within the item
-   const titleElement = item.querySelector('.name.col-xs-8.col-sm-8.greedyLink h3 a');
-
-   // Extract the description div within the item
-   const descDiv = item.querySelector('.desc.col-xs-9.col-sm-5');
-
-   // Initialize variables to store the extracted values
-   let title = '';
-   let address = '';
-   let specialization = '';
-
-   // Check if the title element exists and extract its text content
-   if (titleElement) {
-	 title = titleElement.textContent.trim();
-   }
-
-   // Check if the description div exists
-   if (descDiv) {
-	 // Extract the address element within the description div
-	 const addressElement = descDiv.querySelector('address');
-	 if (addressElement) {
-	   address = addressElement.textContent.trim();
-	 }
-
-	 // Extract the specialization element within the description div
-	 const specializationElement = descDiv.querySelector('div[title]');
-	 if (specializationElement) {
-	   specialization = specializationElement.getAttribute('title');
-	 }
-   }
-
-   // Create an object with the extracted data and add it to the results array
-   results.push({
-	 title,
-	 address,
-	 specialization,
-   });
- });
-
- // Output the results to the console
- console.log(results);
-}
+	// Select the parent element that contains the result list
+	const resultList = document.querySelector('.content #doctorList .doctorSearchResult ul.resultList');
+	const items = resultList.querySelectorAll('li.row.showRestCont');
+  
+	const results = [];
+  
+	// Iterate over each item in the result list
+	items.forEach((item) => {
+	  // Extract the name element within the item
+	  const nameElement = item.querySelector('.name.col-xs-8.col-sm-8.greedyLink h3 a');
+  
+	  // Extract the description div within the item
+	  const descDiv = item.querySelector('.desc.col-xs-9.col-sm-5');
+  
+	  // Initialize variables to store the extracted values
+	  let name = '';
+	  let address = '';
+	  let telephone = '';
+	  let specialization = '';
+  
+	  // Check if the name element exists and extract its text content
+	  if (nameElement) {
+		name = nameElement.textContent.trim();
+	  }
+  
+	  // Check if the description div exists
+	  if (descDiv) {
+		// Extract the address element within the description div
+		const addressElement = descDiv.querySelector('address');
+		if (addressElement) {
+		  address = addressElement.textContent.trim();
+		  // Separate the telephone number from the address
+		  const telephoneMatch = address.match(/Telefon:\s*([\d\/\s-]+)/);
+		  if (telephoneMatch) {
+			telephone = telephoneMatch[1].trim();
+			// Remove the telephone number and preceding text from the address
+			address = address.replace(telephoneMatch[0], '').trim();
+		  }
+		}
+  
+		// Extract the specialization element within the description div
+		const specializationElement = descDiv.querySelector('div[title]');
+		if (specializationElement) {
+		  specialization = specializationElement.getAttribute('title');
+		}
+	  }
+  
+	  // Create an object with the extracted data and add it to the results array
+	  results.push({
+		name,
+		address,
+		telephone,
+		specialization,
+	  });
+	});
+  
+	// Output the results to the console
+	console.log(results);
+  }
+  
+  
 function connectpubSub(){
 
     console.log("subscription")

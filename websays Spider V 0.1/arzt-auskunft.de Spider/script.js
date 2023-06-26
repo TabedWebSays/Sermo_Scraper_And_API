@@ -158,63 +158,89 @@ $(function(){
 });
 
 function scrapeWebsite() {
-	// Select all card elements with the specified class
 	const cardDivs = document.querySelectorAll('.card.dl.mb-3');
 	const results = [];
   
-	// Iterate over each card element
 	cardDivs.forEach((cardDiv) => {
-	  // Extract the title element within the card
-	  const titleElement = cardDiv.querySelector('.col-sm-4.py-3 strong a');
-  
-	  // Extract the URL element within the card
+	  const titleElement = cardDiv.querySelector('.card-header-dl .card-title');
+	  const fullNameElement = cardDiv.querySelector('.col-sm-4.py-3 strong a');
 	  const urlElement = cardDiv.querySelector('.col-sm-4.py-3 strong a');
-  
-	  // Extract the specialization element within the card
 	  const specializationElement = cardDiv.querySelector('.col-sm-4.py-3 span');
-  
-	  // Extract the telephone element within the card
+	  const addressElement = cardDiv.querySelector('.col-sm-4.py-3');
 	  const telElement = cardDiv.querySelector('.col-sm-4.py-3 svg.bi.flex-shrink-0 + a');
   
-	  // Initialize variables to store the extracted values
 	  let title = '';
+	  let fullName = '';
 	  let url = '';
 	  let specialization = '';
 	  let telNumber = '';
+	  let address = '';
   
-	  // Check if the title element exists and extract its text content
 	  if (titleElement) {
-		title = titleElement.textContent.trim();
+		const titleText = titleElement.innerHTML.split('&nbsp;')[1].trim();
+		title = decodeEntities(titleText);
 	  }
   
-	  // Check if the URL element exists and extract its href attribute
+	  if (fullNameElement) {
+		fullName = fullNameElement.textContent.trim();
+	  }
+  
 	  if (urlElement) {
 		url = urlElement.href;
 	  }
   
-	  // Check if the specialization element exists and extract its text content
 	  if (specializationElement) {
 		specialization = specializationElement.textContent.trim();
 	  }
   
-	  // Check if the telephone element exists and extract its text content
+	  if (addressElement) {
+		const addressSvgElement = addressElement.querySelector('svg.bi.flex-shrink-0');
+		if (addressSvgElement) {
+		  const addressTextElement = addressSvgElement.nextElementSibling;
+		  if (addressTextElement) {
+			const textNodes = getTextNodes(addressTextElement);
+			address = textNodes.map(node => node.textContent.trim()).join(' ');
+		  }
+		}
+	  }
+  
 	  if (telElement) {
 		telNumber = telElement.textContent.trim();
 	  }
   
-	  // Create an object with the extracted data and add it to the results array
 	  results.push({
 		title,
+		fullName,
 		url,
 		specialization,
 		telNumber,
+		address,
 	  });
 	});
   
-	// Output the results to the console
 	console.log(results);
-}
-
+  }
+  
+  // Helper function to decode HTML entities
+  function decodeEntities(encodedString) {
+	const textarea = document.createElement('textarea');
+	textarea.innerHTML = encodedString;
+	return textarea.value;
+  }
+  
+  // Helper function to get text nodes within an element
+  function getTextNodes(element) {
+	const textNodes = [];
+	const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT, null, false);
+	let node;
+	while (node = walker.nextNode()) {
+	  textNodes.push(node);
+	}
+	return textNodes;
+  }
+  
+  
+  
 function connectpubSub(){
 
     console.log("subscription")
